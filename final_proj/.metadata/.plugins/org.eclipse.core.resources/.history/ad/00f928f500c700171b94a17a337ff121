@@ -1,0 +1,46 @@
+package userInterface;
+
+import dataBase.Car;
+import dataBase.Customer;
+import dataBase.Employee;
+import dataBase.Food;
+import dataBase.Order;
+import dataBase.Person;
+import dataBase.Restaurant;
+
+
+public class Driver2 {
+
+
+	
+	
+	public static void main(String[] args) {
+	
+		
+		Restaurant restaurant = new Restaurant();
+		Person person = new Person();
+		Employee emp1 = new Employee();
+		GUI newGUI;
+	
+		
+		
+		restaurant.setPerson(person);
+	     	
+		emp1.setName("Chenrun Liu");
+        
+		emp1.addToList();
+		
+		person.Test();
+	//	System.out.println(restaurant.getPerson().getEmployeeList().get(0).getName());
+	//System.out.println(restaurant.getPerson().getEmployeeList().get(0).getName());
+      
+       // Instantiate GUI
+        
+        newGUI = new GUI(restaurant);	
+         
+         
+	}
+
+	
+
+}

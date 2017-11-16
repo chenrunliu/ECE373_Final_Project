@@ -1,0 +1,9 @@
+package dataBase;
+
+public class Car {
+
+	private String carBrand;
+	private String carPlate;
+	private Employee empAssignedTo;
+	
+}

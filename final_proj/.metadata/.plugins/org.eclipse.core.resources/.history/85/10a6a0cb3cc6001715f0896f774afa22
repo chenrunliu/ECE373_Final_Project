@@ -1,0 +1,8 @@
+package dataBase;
+
+public class Food {
+	
+	private String foodIncluded;
+	private String foodIngredients;
+
+}

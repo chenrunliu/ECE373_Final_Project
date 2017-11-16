@@ -1,0 +1,32 @@
+package dataBase;
+
+public class Car {
+
+	private String carBrand;    //each car has a brand name
+	private String carPlate;    //each car has a plate number
+	private Employee empAssignedTo;    //each car is assigned to an specific delivery man
+	
+	//constructor
+	public Car() {
+		
+	}
+	
+	public String getBrand() {
+		return this.carBrand;
+	}
+	
+	public void setBrand(String brand) {
+		this.carBrand = brand;
+	}
+	
+	public String getPlate() {
+		return this.carPlate;
+	}
+	
+	public void setPlate(String plate) {
+		this.carPlate = plate;
+	}
+	
+
+	
+}

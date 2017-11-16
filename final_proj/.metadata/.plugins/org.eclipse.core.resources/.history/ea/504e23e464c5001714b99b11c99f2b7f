@@ -1,0 +1,8 @@
+package dataBase;
+
+public class Employee extends Person{
+
+	private String name;
+	private boolean isAvailable;
+	private int iD;
+}

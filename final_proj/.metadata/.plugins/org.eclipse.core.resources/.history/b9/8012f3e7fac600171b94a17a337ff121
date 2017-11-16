@@ -1,0 +1,14 @@
+package dataBase;
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class Restaurant {
+
+	
+	ArrayList<Car> carList = new ArrayList<Car>();
+	ArrayList<Employee> employeeList=new ArrayList<Employee>();
+	ArrayList<Customer> customerList=new ArrayList<Customer>();
+
+	
+	
+}

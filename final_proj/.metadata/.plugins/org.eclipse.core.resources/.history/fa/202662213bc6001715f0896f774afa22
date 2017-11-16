@@ -1,0 +1,11 @@
+package dataBase;
+
+public class Order {
+	
+	private Food food;
+	private int orderID;
+	private Employee empAssignedTo;
+	private boolean isDelivered;
+	private Customer cusOrdered;
+	
+}

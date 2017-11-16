@@ -1,0 +1,20 @@
+package dataBase;
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class Restaurant {
+
+	private Person person;
+	ArrayList<Car> carList = new ArrayList<Car>();
+	
+
+	public Person getPerson() {
+		return person;
+	}
+	
+	public void setPerson(Person person1) {
+		this.person = person1;
+	}
+	
+	
+}

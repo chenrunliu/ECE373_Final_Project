@@ -1,0 +1,9 @@
+package dataBase;
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class Person extends Restaurant{
+	ArrayList<Employee> employeeList=new ArrayList<Employee>();
+	ArrayList<Customer> customerList=new ArrayList<Customer>();
+
+}

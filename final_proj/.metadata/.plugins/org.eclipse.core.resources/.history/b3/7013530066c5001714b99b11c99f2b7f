@@ -1,0 +1,8 @@
+package dataBase;
+
+import java.util.ArrayList;
+
+public class Person {
+	ArrayList<Employee> employeeList=new ArrayList<Employee>();
+
+}

@@ -1,0 +1,8 @@
+package dataBase;
+
+public class Restaurant {
+
+	private Food food;
+	private ArrayList<Car> carList = new ArrayList<Car>();
+	
+}

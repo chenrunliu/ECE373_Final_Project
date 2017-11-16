@@ -1,0 +1,33 @@
+package dataBase;
+
+public class Customer extends Person{
+
+	private String name;
+	private String phone;
+	private String address;
+	private String specialNeeds;
+	private String paymentMethod;
+	private String cardNumber;
+	private String expDate;
+	private String SSV;
+	private String billingAddress;
+	
+	
+	//constructor
+	public Customer() {
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public void addToList() {
+		super.customerList.add(this);
+	}
+	
+}

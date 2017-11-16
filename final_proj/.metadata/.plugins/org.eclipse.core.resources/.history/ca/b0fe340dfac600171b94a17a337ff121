@@ -1,0 +1,38 @@
+package userInterface;
+
+import dataBase.Car;
+import dataBase.Customer;
+import dataBase.Employee;
+import dataBase.Food;
+import dataBase.Order;
+import dataBase.Person;
+import dataBase.Restaurant;
+
+
+public class Driver2 {
+
+
+	// Created by Lahiru Ariyananda and Peter Hall
+	
+	public static void main(String[] args) {
+	
+		
+		Restaurant restaurant = new Restaurant();
+		GUI newGUI;
+	
+		
+		Employee emp1 = new Employee();
+	     	
+		emp1.setName("Chenrun Liu");
+        
+      
+       // Instantiate GUI
+        
+        newGUI = new GUI(restaurant);	
+         
+         
+	}
+
+	
+
+}

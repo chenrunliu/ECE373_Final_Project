@@ -1,0 +1,64 @@
+package dataBase;
+import java.io.Serializable;
+
+public class Employee extends Person{
+
+	private String name;			 // name of delivery man
+	private boolean isAvailable;     //check status available or not
+	private int iD;                  //each delivery man has an ID
+	private Car car;                 //each delivery man has a car assigned for delivery
+	private Order orderAssigned;     //each delivery man has an order assigned to
+	//constructor
+	public Employee() {
+		
+	}
+	
+	//setters and getters
+	public String getName() {
+		return this.name;
+	}
+	
+	public void setName(String name1) {
+		this.name = name1;
+	}
+	
+	public boolean getStatus() {
+		return this.isAvailable;
+	}
+	
+	public void setStatus(boolean status) {
+		this.isAvailable = status;
+	}
+	
+	public int getID() {
+		return this.iD;
+	}
+	
+	public void setID(int id) {
+		this.iD = id;
+	}
+	
+	public Car getCar() {
+		return this.car;
+	}
+	
+	public void setCar(Car car1) {
+		this.car = car1;
+		car1.setEmp(this);                       //assign car to this delivery man
+	}
+	
+	public Order getOrder() {
+		return this.orderAssigned;
+	}
+	
+	public void setOrder(Order order) {
+		this.orderAssigned = order;
+		order.setEmployee(this);                   //assign order to this delivery man
+	}
+	
+	public void addToList() {
+		getEmployeeList().add(this);
+		
+	}
+	
+}

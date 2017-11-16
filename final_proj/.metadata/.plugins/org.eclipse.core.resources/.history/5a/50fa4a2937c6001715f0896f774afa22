@@ -1,0 +1,56 @@
+package dataBase;
+
+public class Employee extends Person{
+
+	private String name;
+	private boolean isAvailable;
+	private int iD;
+	private Car car;
+	private Order orderAssigned;
+	
+	public Employee() {
+		
+	}
+	
+	
+	public String getName() {
+		return this.name;
+	}
+	
+	public void setName(String name1) {
+		this.name = name1;
+	}
+	
+	public boolean getStatus() {
+		return this.isAvailable;
+	}
+	
+	public void setStatus(boolean status) {
+		this.isAvailable = status;
+	}
+	
+	public int getID() {
+		return this.iD;
+	}
+	
+	public void setID(int id) {
+		this.iD = id;
+	}
+	
+	public Car getCar() {
+		return this.car;
+	}
+	
+	public void setCar(Car car1) {
+		this.car = car1;
+	}
+	
+	public Order getOrder() {
+		return this.orderAssigned;
+	}
+	
+	public void setOrder(Order order) {
+		this.orderAssigned = order;
+	}
+	
+}

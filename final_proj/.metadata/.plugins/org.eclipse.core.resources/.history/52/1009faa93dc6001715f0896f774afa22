@@ -1,0 +1,10 @@
+package dataBase;
+
+import java.util.ArrayList;
+
+public class Restaurant {
+
+	private Food food;
+	private ArrayList<Car> carList = new ArrayList<Car>();
+	
+}

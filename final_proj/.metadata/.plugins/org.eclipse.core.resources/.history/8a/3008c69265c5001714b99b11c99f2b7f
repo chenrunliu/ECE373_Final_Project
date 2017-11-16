@@ -1,0 +1,9 @@
+package dataBase;
+
+public class Order {
+
+	private int orderID;
+	private Employee empAssignedTo;
+	private boolean isDelivered;
+	
+}

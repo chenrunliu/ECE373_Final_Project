@@ -1,0 +1,43 @@
+package userInterface;
+
+import dataBase.Car;
+import dataBase.Customer;
+import dataBase.Employee;
+import dataBase.Food;
+import dataBase.Order;
+import dataBase.Person;
+import dataBase.Restaurant;
+
+
+public class Driver2 {
+
+
+	
+	
+	public static void main(String[] args) {
+	
+		
+		Restaurant restaurant = new Restaurant();
+		Person person = new Person();
+		GUI newGUI;
+	
+		Employee emp1 = new Employee();
+		
+		restaurant.setPerson(person);
+	     	
+		emp1.setName("Chenrun Liu");
+        
+		emp1.addToList();
+		
+		restaurant.getPerson().Test();
+      
+       // Instantiate GUI
+        
+        newGUI = new GUI(restaurant);	
+         
+         
+	}
+
+	
+
+}

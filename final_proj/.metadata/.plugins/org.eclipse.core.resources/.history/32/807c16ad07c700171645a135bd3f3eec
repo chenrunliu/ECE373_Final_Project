@@ -1,0 +1,31 @@
+package dataBase;
+import java.io.Serializable;
+public class Food extends Restaurant{
+	
+	private String foodName;
+	private String foodIngredients;
+	
+	
+	//constructor
+	public Food() {
+		
+	}
+	
+	//setters and getters
+	public String getFoodName() {
+		return this.foodName;
+	}
+	
+	public void setFoodName(String foodname) {
+		this.foodName = foodname;
+	}
+	
+	public String getFoodIngredients() {
+		return this.foodIngredients;
+	}
+	
+	public void setFoodIndredients(String foodingredients) {
+		this.foodIngredients = foodingredients;
+	}
+
+}
