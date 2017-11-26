@@ -13,8 +13,8 @@ import dataBase.Restaurant;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
-
+import javax.swing.border.LineBorder;
+import javax.swing.*;
 public class GUI extends JFrame{
 
 	
@@ -24,22 +24,55 @@ public class GUI extends JFrame{
 	private JMenuBar menuBar;
 	private JMenu Availability;
 	private JMenuItem availableDeliveryMan;
+	private JButton order;
+	private JPanel pane;
 	
 	public GUI(Restaurant restaurant1) {
 		super("Menu");
 		restaurant = restaurant1;
+		pane = new JPanel();
+		setSize(1000, 1000);
+		setLayout(new GridBagLayout());
+		pane.setLayout(new GridBagLayout());
+		pane.setAutoscrolls(true);
+		GridBagConstraints con = new GridBagConstraints();
+		con.gridx = 0;
+		con.gridy = 0;
 		
-		setSize(500, 500);
-		setLayout(new FlowLayout(FlowLayout.CENTER));
-		
-		add(new JLabel("<HTML><center>Welcome to Online Restaurant" +
-				"<BR>Choose an action from the above menus.</center></HTML>"));
-		
-		
+		JLabel title = new JLabel("<HTML><center><h2>Welcome to Online Restaurant</h2>" +
+				"Choose an action from the above menus.<BR></center></HTML>");
+		title.setHorizontalAlignment(SwingConstants.CENTER);
+		add(title, con);
+		JLabel menuLabel = new JLabel("<HTML><center> <h3>Today's Menu</h3><BR></center></HTML>");
+		pane.add(menuLabel, con);
+		int x = 1;
+		//1 food item
+		JLabel foodItem = new JLabel("<HTML><center><div align='left'>"+x+". "+restaurant1.getFood().getFoodName()+"<BR><BR>Food Ingredients: "+restaurant1.getFood().getFoodIngredients()+"</div><BR><BR></center></HTML>");
+		foodItem.setToolTipText(foodItem.getText());
+		x += 1;
+		con.gridx = 0;
+		con.gridy = con.gridy + 1;
+		pane.add(foodItem, con);
+		//
+		order = new JButton("Order");
+		order.addActionListener(new ButtonListener());
+		con.gridx = 0;
+		con.gridy = con.gridy + 1;
+		pane.add(order, con);
+		JLabel OA = new JLabel("<HTML><BR><BR>Delivery Avaliability: "+DeliveryAvailability()+"<BR>Note: If the delivery availability shows 'no' then you probably need <BR>to wait at least 60 minutes after placing your order for delivery.</HTML>");
+		con.gridx = 0;
+		con.gridy = con.gridy + 1;
+		pane.add(OA, con);
+		pane.setBorder(new LineBorder(Color.BLUE));
+		con.gridx = 0;
+		con.gridy = 1;
+		add(pane, con);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		buildGUI();	
 		setVisible(true);
+		pane.setVisible(true);
+		pack();
 	}
 	
 	public void buildGUI() {
@@ -52,6 +85,14 @@ public class GUI extends JFrame{
 		menuBar.add(Availability);
 		
 		setJMenuBar(menuBar);
+	}
+	
+	public String DeliveryAvailability() {
+		if (restaurant.getPerson().getEmployeeList().isEmpty()) {
+			return "no";
+		} else {
+			return "yes";
+		}
 	}
 	
 	private class MenuListener implements ActionListener{
@@ -82,7 +123,14 @@ public class GUI extends JFrame{
 		
 		
 	}
-	
+	private class ButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			JButton source = (JButton)(e.getSource());
+			if (source.equals(order)) {
+				System.out.println("test");
+			}
+		}
+	}
 	
 }
 
