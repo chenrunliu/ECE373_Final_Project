@@ -47,7 +47,7 @@ public class GUI extends JFrame{
 		pane.add(menuLabel, con);
 		int x = 1;
 		//1 food item
-		JLabel foodItem = new JLabel("<HTML><center><div align='left'>"+x+". "+restaurant1.getFood().getFoodName()+"<BR><BR>Food Ingredients: "+restaurant1.getFood().getFoodIngredients()+"</div><BR><BR></center></HTML>");
+		JLabel foodItem = new JLabel("<HTML><center><div align='left'>"+x+". "+restaurant1.getFood().getFoodName()+"&emsp;&emsp;$"+restaurant1.getFood().getPrice()+"<BR><BR>Food Ingredients: "+restaurant1.getFood().getFoodIngredients()+"</div><BR><BR></center></HTML>");
 		foodItem.setToolTipText(foodItem.getText());
 		x += 1;
 		con.gridx = 0;
