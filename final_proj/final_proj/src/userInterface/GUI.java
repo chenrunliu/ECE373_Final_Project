@@ -26,6 +26,7 @@ public class GUI extends JFrame{
 	private JMenuItem availableDeliveryMan;
 	private JButton order;
 	private JPanel pane;
+	public int count = 0;
 	
 	public GUI(Restaurant restaurant1) {
 		super("Menu");
@@ -88,11 +89,14 @@ public class GUI extends JFrame{
 	}
 	
 	public String DeliveryAvailability() {
-		if (restaurant.getPerson().getEmployeeList().isEmpty()) {
-			return "no";
-		} else {
-			return "yes";
+		
+		for(int i=0;i<restaurant.getPerson().getEmployeeList().size();i++) {
+			if(restaurant.getPerson().getEmployeeList().get(i).getStatus() == true) {
+				return "yes";
+			}
 		}
+		
+		return "no";
 	}
 	
 	private class MenuListener implements ActionListener{
@@ -127,650 +131,187 @@ public class GUI extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			JButton source = (JButton)(e.getSource());
 			if (source.equals(order)) {
-				System.out.println("test");
-			}
-		}
-	}
-	
-}
-
-
-
-
-
-
-/*
-
-	public class UniversityGUI extends JFrame{
-
-
-	
-		
-		
-	
-		
-		private class MenuListener implements ActionListener
-		{
-			private final String JTextFiled  = null;
-
-			
-			
-			
-			public void AddCourse() {
-				//String name;
+				
+				
 				
 				JTextField field1 = new JTextField();
 				JTextField field2 = new JTextField();
 				JTextField field3 = new JTextField();
+				JTextField field4 = new JTextField();
+				JTextField field5 = new JTextField();
+				
+				Customer cus = new Customer();
+				restaurant.getPerson().addCusToList(cus);
 				
 				Object[] fields = {
-						"Student name: ", field1,
-						"Department: ", field2,
-						"Course #:", field3
+						"Name: ", field1,
+						"Phone: ", field2,
+						"Address:", field3,
+						"Special Needs:", field4,
+						"Payment Method: (Type 'Card' or 'Cash')", field5
 				};
 				
-				JOptionPane.showConfirmDialog(null, fields, "Add Course", JOptionPane.OK_CANCEL_OPTION);
+				JOptionPane.showInputDialog(null, fields, "Customer Info & Payment", JOptionPane.OK_CANCEL_OPTION);
 			
-				
-				if(field1.getText().equals(""))
-				{
-						check = false;
-						JOptionPane.showMessageDialog(null, 
-													"Please enter correct Student Name", 
-													"Error adding student to course", 
+				if(field1.getText().equals("")){
+					
+					JOptionPane.showMessageDialog(null, 
+													"Please enter correct name", 
+													"Empty Customer Name", 
 													JOptionPane.PLAIN_MESSAGE);
 				}
 				
-				else if(!field1.getText().equals("")){
+				else {   //field1
 					
-					if(!containsStudent(field1.getText())) {
-						check = false;
-						JOptionPane.showMessageDialog(null,
-								"Student  \""+field1.getText()+"\" doesn't exist.",
-								"Error adding student to course",
-								JOptionPane.PLAIN_MESSAGE);
-					}
-					
+					restaurant.getPerson().getCustomerList().get(count).setName(field1.getText());
+					System.out.println(restaurant.getPerson().getCustomerList().get(count).getName());
 				}
 				
 				if(field2.getText().equals("")) {
-					check = false;
 					JOptionPane.showMessageDialog(null, 
-							"Please enter correct Department Name", 
-							"Error adding student to course", 
+							"Please enter correct phone number", 
+							"Empty Customer Phone Number", 
 							JOptionPane.PLAIN_MESSAGE);
 				}
 				
-				else if(!field2.getText().equals("")){
-					
-					if(!containsDepartment(field2.getText())) {
-						check = false;
-						JOptionPane.showMessageDialog(null,
-								"Department  \""+field2.getText()+"\" doesn't exist.",
-								"Error adding student to course",
-								JOptionPane.PLAIN_MESSAGE);
-					}
-					
+				else {   //field2
+					restaurant.getPerson().getCustomerList().get(count).setPhone(field2.getText());
+					System.out.println(restaurant.getPerson().getCustomerList().get(count).getPhone());
 				}
 				
 				if(field3.getText().equals("")) {
-					check = false;
 					JOptionPane.showMessageDialog(null, 
-							"Please enter correct Course Number", 
-							"Error adding student to course", 
+							"Please enter correct Address", 
+							"Empty Customer Address", 
+							JOptionPane.PLAIN_MESSAGE);
+				}
+				
+				else {   //field3
+					restaurant.getPerson().getCustomerList().get(count).setAddress(field3.getText());
+					System.out.println(restaurant.getPerson().getCustomerList().get(count).getAddress());
+				}
+				
+				
+				//feild4 action
+				restaurant.getPerson().getCustomerList().get(count).setNeeds(field4.getText());
+				System.out.println(restaurant.getPerson().getCustomerList().get(count).getNeeds());
+				
+				//field5
+				if(field5.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, 
+							"Please enter correct Payment Method", 
+							"Empty Customer Payment Method", 
+							JOptionPane.PLAIN_MESSAGE);
+				}
+				
+				else if(!(field5.getText().equals("Card")|field5.getText().equals("Cash"))) {
+					JOptionPane.showMessageDialog(null, 
+							"Please enter correct Payment Method", 
+							"Wrong Type of Payment Method", 
 							JOptionPane.PLAIN_MESSAGE);
 				}
 				
 				
-				
-				else if(!field3.getText().equals("")){
-					
-					if(!containsCourse(field3.getText())) {
-						check = false;
-						JOptionPane.showMessageDialog(null,
-								"Course  \""+field3.getText()+"\" doesn't exist in \""+field2.getText()+"\" .",
-								"Error adding student to course",
-								JOptionPane.PLAIN_MESSAGE);
-
+				else {   //field5
+					restaurant.getPerson().getCustomerList().get(count).setPaymentMethod(field5.getText());
+					if(field5.getText().equals("Card")) {
+						CardPaymentInfo(count);
 					}
 					
-				}
-				
-				
-				//conflict detect
-				if(check == true) {
-				//univ.departmentList.get(x).student.get(z).addCourse(univ.departmentList.get(x).course.get(y));
-				
-				
-				int i,j,k;
-				boolean check1 = true;
-				
-				for(i=0;i<univ.departmentList.get(x).student.get(z).getCourse().size();i++) {
-					for(j=0;j<univ.departmentList.get(x).student.get(z).getCourse().get(i).getSchedule().size();j++) {
-						for(k=0;k<univ.departmentList.get(x).course.get(y).getSchedule().size();k++) {
-							
-							if((univ.departmentList.get(x).student.get(z).getCourse().get(i).getSchedule().get(j) - univ.departmentList.get(x).course.get(y).getSchedule().get(k)) == 0) {
-							check1 = false;
-							
-							
-							JOptionPane.showMessageDialog(null,
-									univ.departmentList.get(x).course.get(y).getDepartment().getDepartmentName()+univ.departmentList.get(x).course.get(y).getCourseNumber()+" course cannot be added to " +univ.departmentList.get(x).student.get(z).getName()+"'s Schedule. "+ univ.departmentList.get(x).course.get(y).getDepartment().getDepartmentName()+univ.departmentList.get(x).course.get(y).getCourseNumber()+" conflicts with "+univ.departmentList.get(x).student.get(z).getCourse().get(i).getDepartment().getDepartmentName()+univ.departmentList.get(x).student.get(z).getCourse().get(i).getCourseNumber()+". "
-											+"Conflicting time slot is "+univ.departmentList.get(x).course.get(y).getSchedule1().get(k)+".",
-									"Error adding student to course",
-									JOptionPane.PLAIN_MESSAGE);
-
-						}
-							
-							
-						//	System.out.println(univ.departmentList.get(x).course.get(y).getDepartment().getDepartmentName()+univ.departmentList.get(x).course.get(y).getCourseNumber()+" course cannot be added to " +univ.departmentList.get(x).student.get(z).getName()+"'s Schedule. "+ univ.departmentList.get(x).course.get(y).getDepartment().getDepartmentName()+univ.departmentList.get(x).course.get(y).getCourseNumber()+" conflicts with "+univ.departmentList.get(x).student.get(z).getCourse().get(i).getDepartment().getDepartmentName()+univ.departmentList.get(x).student.get(z).getCourse().get(i).getCourseNumber()+". "
-						//			+"Conflicting time slot is "+univ.departmentList.get(x).course.get(y).getSchedule1().get(k)+".");
-						
-							
-						}
-				
+					else {
+						CashPayment();
 					}
-						
-					}
-				
-				if(check1 == true){
-					univ.departmentList.get(x).student.get(z).course.add(univ.departmentList.get(x).course.get(y));
-					univ.departmentList.get(x).course.get(y).student_roaster.add(univ.departmentList.get(x).student.get(z));
 				}
-					
-				}
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				}
-				
+				count++;
 			}
-				
-				
-				public boolean containsStudent(String name1)
-				{		
-					
-					
-					for(int n = 0; n < univ.departmentList.size(); n++) 
-					{
-						for(int i = 0;i<univ.departmentList.get(n).student.size();i++) {
-						if ((univ.departmentList.get(n).student.get(i).getName().equals( name1)))
-						{
-							z=i;
-							check = true;
-							return true;
-						}
-						}
-					}
-					z = -1;
-					return false;	
-			    }
-
-				public boolean containsDepartment(String depart1)
-				{		
-					
-					
-					for(int n = 0; n < univ.departmentList.size(); n++) 
-					{
-						if ((univ.departmentList.get(n).getDepartmentName().equals( depart1)))
-						{
-							x=n;
-							check = true;
-							return true;
-						}
-					}
-					x=-1;
-					return false;	
-			    }
-				
-				
-				
-				
-				public boolean containsCourse(String course1)
-				{		
-					
-					if(x >=0) {
-						for(int i=0;i<univ.departmentList.get(x).course.size();i++) {
-						if ((univ.departmentList.get(x).course.get(i).getCourseNumber() == (Integer.parseInt(course1))))
-						{
-							y=i;
-							check = true;
-							return true;
-						}
-						}
-					}
-					y=-1;
-					return false;	
-			    }
-			
-				
-				
-				public void DropCourse() {
-					JTextField field1 = new JTextField();
-					JTextField field2 = new JTextField();
-					JTextField field3 = new JTextField();
-					
-					Object[] fields = {
-							"Student name: ", field1,
-							"Department: ", field2,
-							"Course #:", field3
-					};
-					
-					JOptionPane.showConfirmDialog(null, fields, "Drop Course", JOptionPane.OK_CANCEL_OPTION);
-				
-					
-					if(field1.getText().equals(""))
-					{
-							check = false;
-							JOptionPane.showMessageDialog(null, 
-														"Please enter correct Student Name", 
-														"Error dropping student to course", 
-														JOptionPane.PLAIN_MESSAGE);
-					}
-					
-					else if(!field1.getText().equals("")){
-						
-						if(!containsStudent(field1.getText())) {
-							check = false;
-							JOptionPane.showMessageDialog(null,
-									"Student  \""+field1.getText()+"\" doesn't exist.",
-									"Error dropping student to course",
-									JOptionPane.PLAIN_MESSAGE);
-						}
-						
-					}
-					
-					if(field2.getText().equals("")) {
-						check = false;
-						JOptionPane.showMessageDialog(null, 
-								"Please enter correct Department Name", 
-								"Error dropping student to course", 
-								JOptionPane.PLAIN_MESSAGE);
-					}
-					
-					else if(!field2.getText().equals("")){
-						
-						if(!containsDepartment(field2.getText())) {
-							check = false;
-							JOptionPane.showMessageDialog(null,
-									"Department  \""+field2.getText()+"\" doesn't exist.",
-									"Error dropping student to course",
-									JOptionPane.PLAIN_MESSAGE);
-						}
-						
-					}
-					
-					if(field3.getText().equals("")) {
-						check = false;
-						JOptionPane.showMessageDialog(null, 
-								"Please enter correct Course Number", 
-								"Error dropping student to course", 
-								JOptionPane.PLAIN_MESSAGE);
-					}
-					
-					
-					
-					else if(!field3.getText().equals("")){
-						
-						if(!containsCourse(field3.getText())) {
-							check = false;
-							JOptionPane.showMessageDialog(null,
-									"Course  \""+field3.getText()+"\" doesn't exist in \""+field2.getText()+"\" .",
-									"Error dropping student to course",
-									JOptionPane.PLAIN_MESSAGE);
-
-						}
-						
-					}
-					
-					if(check == true) {
-						if(univ.departmentList.get(x).student.get(z).getCourse().contains(univ.departmentList.get(x).course.get(y)) == false) {
-							
-							
-							
-							JOptionPane.showMessageDialog(null,
-									"The course "+ univ.departmentList.get(x).course.get(y).getDepartment().getDepartmentName()+univ.departmentList.get(x).course.get(y).getCourseNumber()+" could not be dropped because "+univ.departmentList.get(x).student.get(z).getName()+" is not enrolled in "+ univ.departmentList.get(x).course.get(y).getDepartment().getDepartmentName()+univ.departmentList.get(x).course.get(y).getCourseNumber()+".",
-									"Error adding student to course",
-									JOptionPane.PLAIN_MESSAGE);
-							
-							
-							//System.out.println("The course "+ univ.departmentList.get(x).course.get(y).getDepartment().getDepartmentName()+univ.departmentList.get(x).course.get(y).getCourseNumber()+" could not be dropped because "+this.getName()+" is not enrolled in "+ univ.departmentList.get(x).course.get(y).getDepartment().getDepartmentName()+univ.departmentList.get(x).course.get(y).getCourseNumber()+".");
-						}
-						//if exist then remove
-						else {
-							univ.departmentList.get(x).student.get(z).getCourse().remove(univ.departmentList.get(x).course.get(y));
-							univ.departmentList.get(x).course.get(y).getStudentRoster().remove(univ.departmentList.get(x).student.get(z));
-						}
-					}
-				}
-				
-				
-				
-				
-				public void PrintSchedule() {
-					JTextField field1 = new JTextField();
-				
-					
-					Object[] fields = {
-							"Student name: ", field1
-					
-					};
-					
-					JOptionPane.showConfirmDialog(null, fields, "Print Student Schedule", JOptionPane.OK_CANCEL_OPTION);
-				
-					
-					if(field1.getText().equals(""))
-					{
-							check = false;
-							JOptionPane.showMessageDialog(null, 
-														"Please enter correct Student Name", 
-														"Error printing student to schedule", 
-														JOptionPane.PLAIN_MESSAGE);
-					}
-					
-					else if(!field1.getText().equals("")){
-						
-						if(!containsStudent(field1.getText())) {
-							check = false;
-							JOptionPane.showMessageDialog(null,
-									"Student  \""+field1.getText()+"\" doesn't exist.",
-									"Error printing student to schedule",
-									JOptionPane.PLAIN_MESSAGE);
-						}
-						
-					}
-					
-					if(check == true) {
-						
-						int count = -1;
-						for(int n = 0;n<univ.departmentList.size();n++) {
-							if(univ.departmentList.get(n).student.get(z).getName().equals(field1.getText())) {
-								count = n;
-							}
-						}
-						
-						//univ.departmentList.get(count).student.get(z).printSchedule();
-						
-						JFrame window = new JFrame("Student "+field1.getText()+"'s Schedule");
-						setLayout(new FlowLayout(FlowLayout.LEFT));
-						JTextArea textArea = new JTextArea(300,200);
-					
-						JScrollPane scrollPane = new JScrollPane(textArea,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-					
-						
-						int i,j;
-						ArrayList<String> string1 = new ArrayList<String>();		
-								for(i=0;i<univ.departmentList.get(count).student.get(z).course.size();i++) {
-									
-									for(j=0;j<univ.departmentList.get(count).student.get(z).course.get(i).getSchedule1().size();j++) {
-										string1.add(univ.departmentList.get(count).student.get(z).course.get(i).getSchedule1().get(j)+" "+univ.departmentList.get(count).student.get(z).course.get(i).getDepartment().getDepartmentName()+univ.departmentList.get(count).student.get(z).course.get(i).getCourseNumber()+" "+univ.departmentList.get(count).student.get(z).course.get(i).getName());
-									}
-									
-								}
-								
-								for(i=0;i<string1.size();i++) {
-									
-									if(string1.get(i).contains("Mon") && string1.get(i).contains("8:00am")) {
-										textArea.append(string1.get(i)+"\n");
-									}
-								}
-								
-								for(i=0;i<string1.size();i++) {
-									
-									if(string1.get(i).contains("Mon") && string1.get(i).contains("9:30am")) {
-										textArea.append(string1.get(i)+"\n");
-									}	
-								}
-								
-							for(i=0;i<string1.size();i++) {
-									
-									if(string1.get(i).contains("Mon") && string1.get(i).contains("11:00am")) {
-										textArea.append(string1.get(i)+"\n");
-									}	
-								}
-							
-							for(i=0;i<string1.size();i++) {
-								
-								if(string1.get(i).contains("Tue") && string1.get(i).contains("8:00am")) {
-									textArea.append(string1.get(i)+"\n");
-								}
-							}
-							
-							for(i=0;i<string1.size();i++) {
-								
-								if(string1.get(i).contains("Tue") && string1.get(i).contains("9:30am")) {
-									textArea.append(string1.get(i)+"\n");
-								}	
-							}
-							
-						for(i=0;i<string1.size();i++) {
-								
-								if(string1.get(i).contains("Tue") && string1.get(i).contains("11:00am")) {
-									textArea.append(string1.get(i)+"\n");
-								}	
-							}
-
-						for(i=0;i<string1.size();i++) {
-							
-							if(string1.get(i).contains("Wed") && string1.get(i).contains("8:00am")) {
-								textArea.append(string1.get(i)+"\n");
-							}
-						}
-
-						for(i=0;i<string1.size();i++) {
-							
-							if(string1.get(i).contains("Wed") && string1.get(i).contains("9:30am")) {
-								textArea.append(string1.get(i)+"\n");
-							}	
-						}
-
-						for(i=0;i<string1.size();i++) {
-							
-							if(string1.get(i).contains("Wed") && string1.get(i).contains("11:00am")) {
-								textArea.append(string1.get(i)+"\n");
-							}	
-						}
-
-						for(i=0;i<string1.size();i++) {
-							
-							if(string1.get(i).contains("Thu") && string1.get(i).contains("8:00am")) {
-								textArea.append(string1.get(i)+"\n");
-							}
-						}
-
-						for(i=0;i<string1.size();i++) {
-							
-							if(string1.get(i).contains("Thu") && string1.get(i).contains("9:30am")) {
-								textArea.append(string1.get(i)+"\n");
-							}	
-						}
-
-						for(i=0;i<string1.size();i++) {
-							
-							if(string1.get(i).contains("Thu") && string1.get(i).contains("11:00am")) {
-								textArea.append(string1.get(i)+"\n");
-							}	
-						}
-
-						for(i=0;i<string1.size();i++) {
-							
-							if(string1.get(i).contains("Fri") && string1.get(i).contains("8:00am")) {
-								textArea.append(string1.get(i)+"\n");
-							}
-						}
-
-						for(i=0;i<string1.size();i++) {
-							
-							if(string1.get(i).contains("Fri") && string1.get(i).contains("9:30am")) {
-								textArea.append(string1.get(i)+"\n");
-							}	
-						}
-
-						for(i=0;i<string1.size();i++) {
-							
-							if(string1.get(i).contains("Fri") && string1.get(i).contains("11:00am")) {
-								textArea.append(string1.get(i)+"\n");
-							}	
-						}
-								
-						window.add(scrollPane);
-						window.setVisible(true);
-						window.setSize(500, 200);
-						
-					}
-					
-					
-				}
-			
-			
-			public void PrintAll() {
-				int i,j,k,h;
-				JFrame window = new JFrame("University Info");
-				setLayout(new FlowLayout(FlowLayout.LEFT));
-				JTextArea textArea = new JTextArea(300,300);
-			
-				JScrollPane scrollPane = new JScrollPane(textArea,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-			
-			
-				textArea.append("List of departments:\n");
-				for(i=0;i<univ.departmentList.size();i++) {
-					textArea.append(univ.departmentList.get(i).getDepartmentName());
-					textArea.append("\n");
-				}
-				
-				textArea.append("\nClassroom list:\n");
-				for(i=0;i<univ.classroomList.size();i++) {
-					textArea.append(univ.classroomList.get(i).getRoomNumber());
-					textArea.append("\n");
-				}
-				textArea.append("\n");
-				
-				for(i=0;i<univ.departmentList.size();i++) {
-					
-					textArea.append("The professor list for department "+univ.departmentList.get(i).getDepartmentName());
-					textArea.append("\n");
-					//univ.departmentList.get(i).printProfessorList();
-					for(j=0;j<univ.departmentList.get(i).professor.size();j++) {
-						textArea.append(univ.departmentList.get(i).professor.get(j).getName());
-						textArea.append("\n");
-					}
-					textArea.append("\n");
-				}
-				
-			
-				//print course name
-		for(i=0;i<univ.departmentList.size();i++) {
-					
-					textArea.append("The course list for department "+univ.departmentList.get(i).getDepartmentName()+"\n");
-					for(j=0;j<univ.departmentList.get(i).course.size();j++) {
-						textArea.append(univ.departmentList.get(i).getDepartmentName()+univ.departmentList.get(i).course.get(j).getCourseNumber());
-						textArea.append("\n");
-					}
-					textArea.append("\n");
-				}
-				
-			
-		//print classroom schedule
-				for(i=0;i<univ.classroomList.size();i++) {
-					textArea.append("The schedule for classroom "+univ.classroomList.get(i).getRoomNumber()+"\n");
-					for(j=0;j<univ.classroomList.get(i).course.size();j++) {
-						for(k=0;k<univ.classroomList.get(i).course.get(j).getSchedule1().size();k++) {
-						textArea.append(univ.classroomList.get(i).course.get(j).getSchedule1().get(k)+" "+univ.classroomList.get(i).course.get(j).getDepartment().getDepartmentName()+" "+univ.classroomList.get(i).course.get(j).getName()+"\n");
-						
-					}
-				}
-					textArea.append("\n");
-				}
-				
-			
-				
-			//print Department prof and student schedule
-			
-			for(i=0;i<univ.departmentList.size();i++) {
-				textArea.append("Department "+univ.departmentList.get(i).getDepartmentName()+"\n\n");
-				textArea.append("Printing Professor schedules:\n");
-			
-				for(j=0;j<univ.departmentList.get(i).professor.size();j++) {
-					//print prof schedule
-					textArea.append("\nThe schedule for Prof. "+univ.departmentList.get(i).professor.get(j).getName()+":\n");
-					
-					for(k=0;k<univ.departmentList.get(i).professor.get(j).course.size();k++) {
-						for(h=0;h<univ.departmentList.get(i).professor.get(j).course.get(k).getSchedule1().size();h++) {
-						textArea.append(univ.departmentList.get(i).professor.get(j).course.get(k).getSchedule1().get(h)+" "+univ.departmentList.get(i).getDepartmentName()+univ.departmentList.get(i).professor.get(j).course.get(k).getCourseNumber()+" "+univ.departmentList.get(i).professor.get(j).course.get(k).getName());
-						textArea.append("\n");
-					}
-						
-				}
-					
-				
-					
-				}
-				
-					//print student schedule
-				textArea.append("\nPrinting Student Schedules:\n");
-			
-					for(j=0;j<univ.departmentList.get(i).student.size();j++) {
-						//print prof schedule
-						textArea.append("\nThe schedule for Student "+univ.departmentList.get(i).student.get(j).getName()+":\n");
-						
-						for(k=0;k<univ.departmentList.get(i).student.get(j).course.size();k++) {
-							for(h=0;h<univ.departmentList.get(i).student.get(j).course.get(k).getSchedule1().size();h++) {
-							textArea.append(univ.departmentList.get(i).student.get(j).course.get(k).getSchedule1().get(h)+" "+univ.departmentList.get(i).getDepartmentName()+univ.departmentList.get(i).student.get(j).course.get(k).getCourseNumber()+" "+univ.departmentList.get(i).student.get(j).course.get(k).getName());
-							textArea.append("\n");
-						}
-							
-					}
-					
-					}
-						textArea.append("\nPrinting Staff Schedules:\n\n");
-					
-					for(j=0;j<univ.departmentList.get(i).staff.size();j++) {
-						textArea.append("The schedule for Staff "+univ.departmentList.get(i).staff.get(j).getName()+":\n");
-						for(k=0;k<univ.departmentList.get(i).staff.get(j).getCourse().getSchedule1().size();k++) {
-						
-							textArea.append(univ.departmentList.get(i).staff.get(j).getCourse().getSchedule1().get(k)+"\n");
-						
-						
-					}
-					}
-					
-					
-					textArea.append("\nThe rosters for courses offered by "+ univ.departmentList.get(i).getDepartmentName()+"\n\n");
-					
-					for(j=0;j<univ.departmentList.get(i).course.size();j++) {
-						textArea.append("The roster for course "+univ.departmentList.get(i).getDepartmentName()+univ.departmentList.get(i).course.get(j).getCourseNumber()+"\n");
-					for(k=0;k<univ.departmentList.get(i).course.get(j).student_roaster.size();k++) {
-						textArea.append(univ.departmentList.get(i).course.get(j).student_roaster.get(k).getName()+"\n");
-					}
-						//this.departmentList.get(i).course.get(j).printCourseRoster();
-					for(k=0;k<univ.departmentList.get(i).course.get(j).staff_roaster.size();k++) {
-						textArea.append(univ.departmentList.get(i).course.get(j).staff_roaster.get(k).getName()+"\n");
-					}
-					
-					textArea.append("\n");
-					}
-					
-
-				
-				window.add(scrollPane);
-				window.setVisible(true);
-				window.setSize(500, 1000);
-
-				
-			}
-			
+		}
+	}
+	
+	public void CardPaymentInfo(int count) {
+		JTextField field1 = new JTextField();
+		JTextField field2 = new JTextField();
+		JTextField field3 = new JTextField();
+		JTextField field4 = new JTextField();
+		JTextField field5 = new JTextField();
 		
+		Customer cus = new Customer();
+		restaurant.getPerson().addCusToList(cus);
 		
-			
-			
+		Object[] fields = {
+				"Card Holder: ", field1,
+				"Card Number: ", field2,
+				"Expiration Date:(month+last 2 digit of year)", field3,
+				"SSV:", field4,
+				"Billing Address", field5
+		};
+		
+		JOptionPane.showInputDialog(null, fields, "Card Payment Info", JOptionPane.OK_CANCEL_OPTION);
+		
+		if(field1.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, 
+					"Please enter correct Card Holder Name", 
+					"Empty Card Holder Name", 
+					JOptionPane.PLAIN_MESSAGE);
 		}
 		
+		else {   //field1
+			restaurant.getPerson().getCustomerList().get(count).setHolder(field1.getText());
+			System.out.println(restaurant.getPerson().getCustomerList().get(count).getHolder());
 		}
 		
-	*/
+		if(field2.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, 
+					"Please enter correct Card Number", 
+					"Empty Card Number", 
+					JOptionPane.PLAIN_MESSAGE);
+		}
+		
+		else {   //field2
+			restaurant.getPerson().getCustomerList().get(count).setCardNumber(field2.getText());
+			System.out.println(restaurant.getPerson().getCustomerList().get(count).getCardNumber());
+		}
+		
+		if(field3.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, 
+					"Please enter correct expiration date", 
+					"Empty Card expiration date", 
+					JOptionPane.PLAIN_MESSAGE);
+		}
+		
+		else {   //field3
+			restaurant.getPerson().getCustomerList().get(count).setEXPDate(field3.getText());
+			System.out.println(restaurant.getPerson().getCustomerList().get(count).getEXPDate());
+		}
+		
+		if(field4.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, 
+					"Please enter correct Card SSV", 
+					"Empty Card SSV", 
+					JOptionPane.PLAIN_MESSAGE);
+		}
+		
+		else {   //field4
+			restaurant.getPerson().getCustomerList().get(count).setSSV(field4.getText());
+			System.out.println(restaurant.getPerson().getCustomerList().get(count).getSSV());
+		}
+		
+		if(field5.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, 
+					"Please enter correct Billing Address", 
+					"Empty Billing Address", 
+					JOptionPane.PLAIN_MESSAGE);
+		}
+		
+		else {   //field5
+			restaurant.getPerson().getCustomerList().get(count).setBillingAddress(field5.getText());
+			System.out.println(restaurant.getPerson().getCustomerList().get(count).getBillingAddress());
+		}
+	
+	}
+	
+	public void CashPayment() {
+		
+	}
+	
+	
+}
