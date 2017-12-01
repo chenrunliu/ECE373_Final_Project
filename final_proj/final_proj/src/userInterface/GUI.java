@@ -25,8 +25,12 @@ public class GUI extends JFrame{
 	private JMenu Availability;
 	private JMenuItem availableDeliveryMan;
 	private JButton order;
+	private JButton can;
+	private JButton confirm;
 	private JPanel pane;
 	public int count = 0;
+	private JFrame review;
+	private Boolean cash;
 	
 	public GUI(Restaurant restaurant1) {
 		super("Menu");
@@ -215,15 +219,19 @@ public class GUI extends JFrame{
 				else {   //field5
 					restaurant.getPerson().getCustomerList().get(count).setPaymentMethod(field5.getText());
 					if(field5.getText().equals("Card")) {
+						cash = false;
 						CardPaymentInfo(count);
 					}
 					
 					else {
-						CashPayment();
+						cash = true;
+						CashPayment(count);
 					}
 				}
 				count++;
+				
 			}
+			
 		}
 	}
 	
@@ -305,12 +313,121 @@ public class GUI extends JFrame{
 		else {   //field5
 			restaurant.getPerson().getCustomerList().get(count).setBillingAddress(field5.getText());
 			System.out.println(restaurant.getPerson().getCustomerList().get(count).getBillingAddress());
+			reviewOrder(count);
 		}
 	
 	}
 	
-	public void CashPayment() {
+	public void reviewOrder(int count) {
+		String t; 
+		if (cash == true) {
+			t = "Cash";
+		} else {
+			t = "Card";
+		}
+		JFrame review = new JFrame();
+		JPanel content = new JPanel();
+		JLabel label = new JLabel("<HTML><h2>Order Review</h2></HTML>");
+		JLabel fname = new JLabel("<HTML><center>Item<BR></center></HTML>");
+		JLabel fquantity = new JLabel("<HTML><center>Quantity<BR></center></HTML>");
+		JLabel fprice = new JLabel("<HTML><center>Price<BR></center></HTML>");
+		JLabel fnamec = new JLabel("<HTML><center>"+restaurant.getFood().getFoodName()+"</center></HTML>");
+		JLabel fquantityc = new JLabel("1");
+		JLabel fpricec = new JLabel("<HTML><center>$"+String.valueOf(restaurant.getFood().getPrice())+"</center></HTML>");
+		JLabel total = new JLabel("<HTML></center>Amount: $"+String.valueOf(restaurant.getFood().getPrice())+"</center></HTML>");
+		JLabel info = new JLabel("<HTML> Customer Name: "+restaurant.getPerson().getCustomerList().get(count).getName()+"<BR> Customer Phone: "+restaurant.getPerson().getCustomerList().get(count).getPhone()+"<BR> Delivery Address: "+restaurant.getPerson().getCustomerList().get(count).getAddress()+"<BR> Payment Type: "+t+"</HTML>");
+		JLabel space = new JLabel("<HTML>&emsp;</HTML>");
+		JLabel space1 = new JLabel("<HTML>&emsp;</HTML>");
+		JLabel space2 = new JLabel("<HTML>&emsp;</HTML>");
+		JLabel space3 = new JLabel("<HTML>&emsp;</HTML>");
+		JButton confirm = new JButton("Confirm");
+		JButton can = new JButton("Cancel");
+		can.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (e.getSource() == can) {
+					review.dispose();
+				}
+			}
+		});
+		confirm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				review.dispose();
+				JOptionPane.showMessageDialog(null, "Your order has been made. Please allow 30 to 60 minutes to deliver.");
+			}
+		});
 		
+		review.setVisible(true);
+		review.setLayout(new GridBagLayout());
+		review.setSize(new Dimension(1000, 1000));
+		content.setVisible(true);
+		content.setLayout(new GridBagLayout());
+		content.setBorder(new LineBorder(Color.BLUE));
+		GridBagConstraints cons = new GridBagConstraints();
+		cons.gridx = 0;
+		cons.gridy = 0;
+		review.add(label, cons);
+		cons.gridx = 0;
+		cons.gridy = 0;
+		content.add(fname,  cons);
+		cons.gridx = 1;
+		content.add(fquantity, cons);
+		cons.gridx = 2;
+		content.add(fprice, cons);
+		cons.gridx = 0;
+		cons.gridy = cons.gridy+1;
+		content.add(space, cons);
+		cons.gridy = cons.gridy+1;
+		content.add(fnamec,  cons);
+		cons.gridx = cons.gridx+1;
+		content.add(fquantityc, cons);
+		cons.gridx = cons.gridx+1;
+		content.add(fpricec, cons);
+		cons.gridy = cons.gridy+1;
+		content.add(space1, cons);
+		cons.gridy = cons.gridy + 1;
+		cons.gridx = 0;
+		content.add(total, cons);
+		cons.gridy = cons.gridy+1;
+		content.add(space2, cons);
+		cons.gridy = cons.gridy + 1;
+		content.add(info, cons);
+		cons.gridy = cons.gridy+1;
+		content.add(space3, cons);
+		cons.gridy = cons.gridy + 1;
+		content.add(confirm, cons);
+		cons.gridx = 1;
+		content.add(can, cons);
+		cons.gridy = 1;
+		cons.gridx = 0;
+		review.add(content, cons);
+		review.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		
+	}
+	
+	public void CashPayment(int count) {
+		JFrame csh = new JFrame();
+		JLabel ttle = new JLabel("<HTML><center><h2>Customer Info and Payment</h2></center><HTML>");
+		JLabel msg = new JLabel("<HTML><center>Cash selected. Please note the delivery man only carries at most $50</center></html>");
+		JButton cont = new JButton("Continue");
+		cont.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				csh.dispose();
+				reviewOrder(count);
+			}
+		});
+		csh.setVisible(true);
+		csh.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		csh.setSize(500, 500);
+		csh.setLayout(new GridBagLayout());
+		GridBagConstraints cnst = new GridBagConstraints();
+		cnst.gridx = 0;
+		cnst.gridy = 0;
+		csh.add(ttle, cnst);
+		cnst.gridy = 1;
+		csh.add(msg, cnst);
+		cnst.gridy = 2;
+		csh.add(cont, cnst);
 	}
 	
 	

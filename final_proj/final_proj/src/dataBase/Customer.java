@@ -7,6 +7,7 @@ public class Customer extends Person{
 	private String address;
 	private String specialNeeds;
 	private String paymentMethod;
+	private String cardHolder;
 	private String cardNumber;
 	private String expDate;
 	private String SSV;
@@ -104,6 +105,12 @@ public class Customer extends Person{
 	//add to personList
 	public void addToList() {
 		super.customerList.add(this);
+	}
+	public void setHolder(String holder) {
+		this.cardHolder = holder;
+	}
+	public String getHolder() {
+		return this.cardHolder;
 	}
 	
 }
