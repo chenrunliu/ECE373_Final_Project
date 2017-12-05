@@ -404,15 +404,20 @@ public class GUI extends JFrame{
 				//System.out.println(restaurant.getPerson().getCustomerList().get(count).getOrderPlaced().getCustomer().getName());
 				for(int i=0;i<restaurant.getPerson().getEmployeeList().size();i++) {
 					if(restaurant.getPerson().getEmployeeList().get(i).getStatus() == true) {
+					//	System.out.println(restaurant.getPerson().getEmployeeList().get(i).getName());
 						Order.setEmployee(restaurant.getPerson().getEmployeeList().get(i));
+						restaurant.getPerson().getEmployeeList().get(i).setStatus(false);
 						i = restaurant.getPerson().getEmployeeList().size()+100;
 						check = false;
 					}
 				}	
+				
+				
 					if(check == true) {
 						JOptionPane.showMessageDialog(null, "No available delivery man now, this may take longer as we mentioned on the initial menu.");
 						restaurant.getPerson().getEmployeeList().get(0).setOrder(Order);
 						Order.setEmployee(restaurant.getPerson().getEmployeeList().get(0));
+						restaurant.getPerson().getEmployeeList().get(0).setStatus(false);
 					}
 				
 				review.dispose();
@@ -506,7 +511,7 @@ public class GUI extends JFrame{
 	public void confirmDelivery(int count) {
 		JFrame conf = new JFrame();
 		JLabel ttle = new JLabel("<HTML><center><h2>Confirm Delivery</h2></center><HTML>");
-		JLabel msg = new JLabel("<HTML><center>Please don't close this window untill you received your order and confirmed your delivery"+"<BR>Delivery man assigned to this order: "+restaurant.getPerson().getEmployeeList().get(count).getName()+"     ID: "+count+"<BR>Phone: "+restaurant.getPerson().getEmployeeList().get(count).getPhone()+"</center></html>");
+		JLabel msg = new JLabel("<HTML><center>Please don't close this window untill you received your order and confirmed your delivery"+"<BR>Delivery man assigned to this order: "+restaurant.getPerson().getCustomerList().get(count).getOrderPlaced().getEmployee().getName()+"     ID: "+restaurant.getPerson().getCustomerList().get(count).getOrderPlaced().getEmployee().getID()+"<BR>Phone: "+restaurant.getPerson().getCustomerList().get(count).getOrderPlaced().getEmployee().getPhone()+"</center></html>");
 		JButton confirm = new JButton("Confirm");
 		confirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

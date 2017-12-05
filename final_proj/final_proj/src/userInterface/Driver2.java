@@ -41,7 +41,7 @@ public class Driver2 {
 		
 		emp2.setName("Bowen Hu");
 		emp2.setID(1);
-		emp1.setPhone("5201111111");
+		emp2.setPhone("5201111111");
 		emp2.setStatus(true);
         
 		person.addEmpToList(emp1);
