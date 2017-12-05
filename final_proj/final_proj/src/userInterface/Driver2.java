@@ -31,22 +31,22 @@ public class Driver2 {
 		
 		food.setFoodName("Sushi Combination: Dragon Roll + Las Vegas Roll (12 pieces in each kind of roll)");
 		food.setFoodIndredients("Dragon Roll: Eel, crab, and cucumber inside. Avocado outside.\nLas Vegas Roll: Cream cheese, avocado, yamagobo, crab, and assorted fish inside. The whole roll is deep-fried.");
-	     	
+	    food.setPrice(19.99); 	
+		
+		
 		emp1.setName("Chenrun Liu");
 		emp1.setID(0);
+		emp1.setPhone("5200000000");
 		emp1.setStatus(false);
 		
 		emp2.setName("Bowen Hu");
 		emp2.setID(1);
+		emp1.setPhone("5201111111");
 		emp2.setStatus(true);
         
 		person.addEmpToList(emp1);
 		person.addEmpToList(emp2);
 		
-	//	System.out.println(restaurant.getPerson().getEmployeeList().get(0).getName());
-	//System.out.println(restaurant.getPerson().getEmployeeList().get(0).getName());
-      
-       // Instantiate GUI
         
         newGUI = new GUI(restaurant);	
          
